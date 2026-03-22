@@ -2,7 +2,7 @@
   "name": "Sunny Days — Weather for Kids",
   "short_name": "Sunny Days",
   "description": "A fun, interactive weather learning app for kids ages 2-5",
-  "start_url": "/",
+  "start_url": "/sunny-days",
   "display": "standalone",
   "background_color": "#87CEEB",
   "theme_color": "#87CEEB",
