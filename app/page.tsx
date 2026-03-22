@@ -21,6 +21,15 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
+      {/* Back to Hub */}
+      <a
+        href="/"
+        className="fixed top-3 left-3 z-50 w-11 h-11 rounded-full bg-white/40 backdrop-blur-md shadow-md flex items-center justify-center text-xl active:scale-90 transition-transform"
+        aria-label="Back to Kids Corner"
+      >
+        &#x1F3E0;
+      </a>
+
       <MuteButton />
 
       {screen === "weather" && <TodayScreen weatherType={weather} />}
