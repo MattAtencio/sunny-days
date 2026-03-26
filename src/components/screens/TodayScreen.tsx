@@ -2,20 +2,9 @@
 
 import { WeatherType, WEATHER_DATA, DAYS_OF_WEEK } from "@/types/weather";
 import { getDayInfo } from "@/lib/weather-sim";
-import { useVoice } from "@kids-games/core/voice";
+import { speak, isMuted } from "@/lib/speech";
 import WeatherAnimation from "@/components/weather/WeatherAnimation";
 import CloudMascot from "@/components/CloudMascot";
-
-const WEATHER_VOICE_ID: Record<WeatherType, string> = {
-  [WeatherType.SUNNY]: "sunny",
-  [WeatherType.PARTLY_CLOUDY]: "partly-cloudy",
-  [WeatherType.CLOUDY]: "cloudy",
-  [WeatherType.RAINY]: "rainy",
-  [WeatherType.STORMY]: "stormy",
-  [WeatherType.SNOWY]: "snowy",
-  [WeatherType.WINDY]: "windy",
-  [WeatherType.FOGGY]: "foggy",
-};
 
 interface TodayScreenProps {
   weatherType: WeatherType;
@@ -25,16 +14,12 @@ export default function TodayScreen({ weatherType }: TodayScreenProps) {
   const weather = WEATHER_DATA[weatherType];
   const { dayIndex, date } = getDayInfo();
   const dayName = DAYS_OF_WEEK[dayIndex];
-  const { playSequence } = useVoice();
 
   const handleSpeak = () => {
-    const wId = WEATHER_VOICE_ID[weatherType];
-    const dayId = dayName.toLowerCase();
-    playSequence([
-      { id: `day-${dayId}`, persona: "sunny" },
-      { id: `weather-${wId}`, persona: "sunny" },
-      { id: `weather-${wId}-desc`, persona: "sunny" },
-    ], 400);
+    if (isMuted()) return;
+    speak(
+      `Today is ${dayName}. It's ${weather.label.toLowerCase()} outside! ${weather.description}`
+    );
   };
 
   return (
@@ -66,7 +51,9 @@ export default function TodayScreen({ weatherType }: TodayScreenProps) {
         </p>
 
         {/* Date */}
-        <p className="text-lg text-gray-500 font-semibold">{date}</p>
+        <p className="text-lg text-gray-500 font-semibold">
+          {date}
+        </p>
 
         {/* Description */}
         <p className="text-xl text-gray-600 font-medium text-center max-w-xs">
@@ -79,24 +66,14 @@ export default function TodayScreen({ weatherType }: TodayScreenProps) {
           className="mt-2 flex items-center gap-3 px-8 py-4 bg-white/80 backdrop-blur-sm rounded-3xl shadow-lg active:scale-95 transition-transform min-h-[64px]"
           aria-label={`Hear about today's weather: ${weather.label} on ${dayName}`}
         >
-          <svg
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#3b82f6"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polygon
-              points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"
-              fill="#3b82f6"
-            />
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="#3b82f6" />
             <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
             <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
           </svg>
-          <span className="text-xl font-bold text-blue-600">Listen</span>
+          <span className="text-xl font-bold text-blue-600">
+            Listen
+          </span>
         </button>
       </div>
     </div>

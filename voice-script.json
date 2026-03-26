@@ -1,0 +1,37 @@
+{
+  "game": "sunny-days",
+  "personas": ["sunny", "maple"],
+  "lines": [
+    { "id": "weather-sunny", "text": "Sunny!", "persona": "sunny", "trigger": "weather-sunny" },
+    { "id": "weather-sunny-desc", "text": "The sun is shining bright!", "persona": "sunny", "trigger": "weather-sunny-desc" },
+    { "id": "weather-partly-cloudy", "text": "Partly Cloudy!", "persona": "sunny", "trigger": "weather-partly-cloudy" },
+    { "id": "weather-partly-cloudy-desc", "text": "The sun is playing peek-a-boo with the clouds!", "persona": "sunny", "trigger": "weather-partly-cloudy-desc" },
+    { "id": "weather-cloudy", "text": "Cloudy!", "persona": "sunny", "trigger": "weather-cloudy" },
+    { "id": "weather-cloudy-desc", "text": "Fluffy clouds cover the sky!", "persona": "sunny", "trigger": "weather-cloudy-desc" },
+    { "id": "weather-rainy", "text": "Rainy!", "persona": "sunny", "trigger": "weather-rainy" },
+    { "id": "weather-rainy-desc", "text": "Pitter-patter goes the rain!", "persona": "sunny", "trigger": "weather-rainy-desc" },
+    { "id": "weather-stormy", "text": "Stormy!", "persona": "sunny", "trigger": "weather-stormy" },
+    { "id": "weather-stormy-desc", "text": "A big storm is here! Stay cozy inside!", "persona": "sunny", "trigger": "weather-stormy-desc" },
+    { "id": "weather-snowy", "text": "Snowy!", "persona": "sunny", "trigger": "weather-snowy" },
+    { "id": "weather-snowy-desc", "text": "Snowflakes are falling from the sky!", "persona": "sunny", "trigger": "weather-snowy-desc" },
+    { "id": "weather-windy", "text": "Windy!", "persona": "sunny", "trigger": "weather-windy" },
+    { "id": "weather-windy-desc", "text": "Whoosh! The wind is blowing!", "persona": "sunny", "trigger": "weather-windy-desc" },
+    { "id": "weather-foggy", "text": "Foggy!", "persona": "sunny", "trigger": "weather-foggy" },
+    { "id": "weather-foggy-desc", "text": "Everything looks misty and mysterious!", "persona": "sunny", "trigger": "weather-foggy-desc" },
+
+    { "id": "day-sunday", "text": "Sunday!", "persona": "sunny", "trigger": "day-tap" },
+    { "id": "day-monday", "text": "Monday!", "persona": "sunny", "trigger": "day-tap" },
+    { "id": "day-tuesday", "text": "Tuesday!", "persona": "sunny", "trigger": "day-tap" },
+    { "id": "day-wednesday", "text": "Wednesday!", "persona": "sunny", "trigger": "day-tap" },
+    { "id": "day-thursday", "text": "Thursday!", "persona": "sunny", "trigger": "day-tap" },
+    { "id": "day-friday", "text": "Friday!", "persona": "sunny", "trigger": "day-tap" },
+    { "id": "day-saturday", "text": "Saturday!", "persona": "sunny", "trigger": "day-tap" },
+    { "id": "today-is", "text": "Today is", "persona": "sunny", "trigger": "today-prefix" },
+
+    { "id": "celebrate-sunny-woohoo", "text": "Woohoo! You're learning about weather!", "persona": "sunny", "trigger": "celebration" },
+    { "id": "celebrate-sunny-amazing", "text": "Amazing! You know your weather!", "persona": "sunny", "trigger": "celebration" },
+    { "id": "celebrate-maple-beautiful", "text": "Beautiful! The weather is so interesting!", "persona": "maple", "trigger": "celebration" },
+
+    { "id": "instruction-welcome", "text": "Welcome to Sunny Days! Let's learn about weather!", "persona": "sunny", "trigger": "game-start" }
+  ]
+}

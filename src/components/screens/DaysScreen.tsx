@@ -1,22 +1,26 @@
 "use client";
 
 import { DAYS_OF_WEEK, DAY_COLORS } from "@/types/weather";
-import { useVoice } from "@kids-games/core/voice";
+import { speak, isMuted } from "@/lib/speech";
 
 export default function DaysScreen() {
   const today = new Date().getDay();
   const yesterday = (today + 6) % 7;
   const tomorrow = (today + 1) % 7;
-  const { playPhrase } = useVoice();
 
   const handleTapDay = (dayIndex: number) => {
-    const dayName = DAYS_OF_WEEK[dayIndex].toLowerCase();
-    playPhrase(`day-${dayName}`, "sunny");
+    if (isMuted()) return;
+    const dayName = DAYS_OF_WEEK[dayIndex];
+    if (dayIndex === today) {
+      speak(`Today is ${dayName}!`);
+    } else {
+      speak(dayName);
+    }
   };
 
   return (
     <div
-      className="min-h-screen bg-gradient-to-b from-indigo-50 to-purple-50 pt-6 pb-28 px-4 overflow-y-auto"
+      className="min-h-screen bg-gradient-to-b from-indigo-50 to-purple-50 pt-6 pb-28 px-4"
       role="main"
       aria-label="Days of the week"
     >
@@ -43,7 +47,7 @@ export default function DaysScreen() {
               key={day}
               onClick={() => handleTapDay(i)}
               className={`
-                day-block relative flex items-center justify-center
+                relative flex items-center justify-center
                 min-h-[80px] rounded-3xl shadow-md
                 ${DAY_COLORS[i]}
                 ${isToday ? "animate-day-glow animate-day-bounce ring-4 ring-yellow-400" : ""}

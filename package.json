@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@kids-games/core": "file:../_core",
     "@ducanh2912/next-pwa": "^10.2.9",
     "next": "^16.1.7",
     "react": "^19.0.0",

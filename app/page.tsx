@@ -7,7 +7,7 @@ import TodayScreen from "@/components/screens/TodayScreen";
 import GalleryScreen from "@/components/screens/GalleryScreen";
 import DaysScreen from "@/components/screens/DaysScreen";
 import BottomNav from "@/components/BottomNav";
-import MuteButton from "@/components/MuteButton";
+import { MuteButton } from "@kids-games/core/components";
 
 type Screen = "weather" | "gallery" | "days";
 

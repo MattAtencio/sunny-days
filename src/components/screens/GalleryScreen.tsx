@@ -2,43 +2,21 @@
 
 import { useState } from "react";
 import { WeatherType, WEATHER_DATA } from "@/types/weather";
-import { useVoice } from "@kids-games/core/voice";
+import { speak, isMuted } from "@/lib/speech";
 import WeatherAnimation from "@/components/weather/WeatherAnimation";
 import CloudMascot from "@/components/CloudMascot";
 
 const ALL_TYPES = Object.values(WeatherType);
 
-const WEATHER_VOICE_ID: Record<WeatherType, string> = {
-  [WeatherType.SUNNY]: "sunny",
-  [WeatherType.PARTLY_CLOUDY]: "partly-cloudy",
-  [WeatherType.CLOUDY]: "cloudy",
-  [WeatherType.RAINY]: "rainy",
-  [WeatherType.STORMY]: "stormy",
-  [WeatherType.SNOWY]: "snowy",
-  [WeatherType.WINDY]: "windy",
-  [WeatherType.FOGGY]: "foggy",
-};
-
 export default function GalleryScreen() {
   const [expanded, setExpanded] = useState<WeatherType | null>(null);
-  const { playSequence } = useVoice();
 
   const handleTap = (type: WeatherType) => {
     setExpanded(type);
-    const wId = WEATHER_VOICE_ID[type];
-    playSequence([
-      { id: `weather-${wId}`, persona: "sunny" },
-      { id: `weather-${wId}-desc`, persona: "sunny" },
-    ], 300);
-  };
-
-  const handleListen = () => {
-    if (!expanded) return;
-    const wId = WEATHER_VOICE_ID[expanded];
-    playSequence([
-      { id: `weather-${wId}`, persona: "sunny" },
-      { id: `weather-${wId}-desc`, persona: "sunny" },
-    ], 300);
+    const w = WEATHER_DATA[type];
+    if (!isMuted()) {
+      speak(`${w.label}. ${w.description}`);
+    }
   };
 
   const handleClose = () => {
@@ -63,12 +41,10 @@ export default function GalleryScreen() {
             <button
               key={type}
               onClick={() => handleTap(type)}
-              className={`weather-card relative overflow-hidden bg-gradient-to-br ${w.gradient} rounded-3xl p-5 min-h-[140px] flex flex-col items-center justify-center gap-2 shadow-md active:scale-95 transition-transform`}
+              className={`relative overflow-hidden bg-gradient-to-br ${w.gradient} rounded-3xl p-5 min-h-[140px] flex flex-col items-center justify-center gap-2 shadow-md active:scale-95 transition-transform`}
               aria-label={`${w.label} weather. Tap to learn more.`}
             >
-              <span className="text-4xl" aria-hidden="true">
-                {w.emoji}
-              </span>
+              <span className="text-4xl" aria-hidden="true">{w.emoji}</span>
               <span className="text-xl font-extrabold text-gray-800 drop-shadow-sm">
                 {w.label}
               </span>
@@ -83,7 +59,6 @@ export default function GalleryScreen() {
           className="fixed inset-0 z-50 animate-card-expand"
           role="dialog"
           aria-label={`${WEATHER_DATA[expanded].label} weather details`}
-          onClick={handleClose}
         >
           <div
             className={`absolute inset-0 bg-gradient-to-b ${WEATHER_DATA[expanded].gradient}`}
@@ -92,10 +67,7 @@ export default function GalleryScreen() {
           </div>
 
           {/* Content */}
-          <div
-            className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 gap-4"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 gap-4">
             <h2 className="text-5xl font-extrabold text-gray-800 drop-shadow-sm">
               {WEATHER_DATA[expanded].label}
             </h2>
@@ -108,24 +80,17 @@ export default function GalleryScreen() {
 
             {/* Listen button */}
             <button
-              onClick={handleListen}
+              onClick={() => {
+                if (!isMuted()) {
+                  const w = WEATHER_DATA[expanded];
+                  speak(`${w.label}. ${w.description}`);
+                }
+              }}
               className="flex items-center gap-3 px-8 py-4 bg-white/80 backdrop-blur-sm rounded-3xl shadow-lg active:scale-95 transition-transform min-h-[64px]"
               aria-label={`Listen to ${WEATHER_DATA[expanded].label} description`}
             >
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#3b82f6"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polygon
-                  points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"
-                  fill="#3b82f6"
-                />
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="#3b82f6" />
                 <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
               </svg>
               <span className="text-xl font-bold text-blue-600">Listen</span>
@@ -137,15 +102,7 @@ export default function GalleryScreen() {
               className="mt-4 w-16 h-16 rounded-full bg-white/80 backdrop-blur-sm shadow-lg flex items-center justify-center active:scale-90 transition-transform"
               aria-label="Close weather detail"
             >
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#374151"
-                strokeWidth="3"
-                strokeLinecap="round"
-              >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="3" strokeLinecap="round">
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>

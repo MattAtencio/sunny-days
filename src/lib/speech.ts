@@ -18,10 +18,9 @@ export function speak(text: string, onEnd?: () => void) {
 
   // Try to find a friendly voice
   const voices = window.speechSynthesis.getVoices();
-  const preferred =
-    voices.find(
-      (v) => v.lang.startsWith("en") && v.name.includes("Female")
-    ) || voices.find((v) => v.lang.startsWith("en"));
+  const preferred = voices.find(
+    (v) => v.lang.startsWith("en") && v.name.includes("Female")
+  ) || voices.find((v) => v.lang.startsWith("en"));
   if (preferred) {
     utterance.voice = preferred;
   }

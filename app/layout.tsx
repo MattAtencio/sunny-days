@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Nunito } from "next/font/google";
+import { AudioProviderWrapper } from "@/components/AudioProviderWrapper";
 import "./globals.css";
 
 const nunito = Nunito({
@@ -39,7 +40,11 @@ export default function RootLayout({
       <head>
         <link rel="apple-touch-icon" href="/icon-192.svg" />
       </head>
-      <body className="font-nunito antialiased">{children}</body>
+      <body className="font-nunito antialiased">
+        <AudioProviderWrapper>
+          {children}
+        </AudioProviderWrapper>
+      </body>
     </html>
   );
 }

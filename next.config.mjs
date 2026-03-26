@@ -9,6 +9,7 @@ const withPWA = withPWAInit({
 const nextConfig = {
   reactStrictMode: true,
   basePath: "/sunny-days",
+  transpilePackages: ["@kids-games/core"],
 };
 
 export default withPWA(nextConfig);
